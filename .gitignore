@@ -1,0 +1,25 @@
+# Dependencias
+vendor/
+node_modules/
+
+# Configuracoes locais
+.env
+.env.local
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Logs e arquivos temporarios
+*.log
+*.tmp
+*.temp
+tmp/
+temp/
+
+# Cache
+.phpunit.result.cache

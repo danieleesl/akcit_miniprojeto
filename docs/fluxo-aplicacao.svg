@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="980" viewBox="0 0 980 980" role="img" aria-labelledby="title desc">
+  <title id="title">Fluxo da aplicacao do gerador de senhas</title>
+  <desc id="desc">Diagrama mostrando o fluxo desde o acesso do usuario ate a copia da senha gerada.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#1769e0" />
+    </marker>
+    <style>
+      .bg { fill: #f4f7fb; }
+      .node { fill: #ffffff; stroke: #d8e0ed; stroke-width: 2; }
+      .decision { fill: #fff7e8; stroke: #f0b44d; stroke-width: 2; }
+      .success { fill: #eaf7ef; stroke: #7ac992; stroke-width: 2; }
+      .error { fill: #fff1f0; stroke: #ff9a94; stroke-width: 2; }
+      .line { stroke: #1769e0; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .label { fill: #172033; font: 700 18px Arial, Helvetica, sans-serif; text-anchor: middle; }
+      .small { fill: #65728a; font: 700 15px Arial, Helvetica, sans-serif; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="980" height="980" rx="20" />
+
+  <rect class="node" x="310" y="40" width="360" height="64" rx="8" />
+  <text class="label" x="490" y="78">Usuario acessa a pagina</text>
+
+  <path class="line" d="M490 104 L490 144" />
+  <rect class="node" x="310" y="144" width="360" height="64" rx="8" />
+  <text class="label" x="490" y="182">Formulario HTML</text>
+
+  <path class="line" d="M490 208 L490 248" />
+  <rect class="node" x="310" y="248" width="360" height="64" rx="8" />
+  <text class="label" x="490" y="286">Envia criterios via POST</text>
+
+  <path class="line" d="M490 312 L490 352" />
+  <rect class="node" x="310" y="352" width="360" height="64" rx="8" />
+  <text class="label" x="490" y="390">PHP valida os dados</text>
+
+  <path class="line" d="M490 416 L490 456" />
+  <path class="decision" d="M490 456 L680 524 L490 592 L300 524 Z" />
+  <text class="label" x="490" y="518">Criterios</text>
+  <text class="label" x="490" y="542">validos?</text>
+
+  <path class="line" d="M300 524 L190 524 L190 636" />
+  <text class="small" x="235" y="506">Nao</text>
+  <rect class="error" x="50" y="636" width="280" height="64" rx="8" />
+  <text class="label" x="190" y="662">Exibe mensagem</text>
+  <text class="label" x="190" y="686">de erro</text>
+
+  <path class="line" d="M490 592 L490 636" />
+  <text class="small" x="526" y="618">Sim</text>
+  <rect class="success" x="310" y="636" width="360" height="72" rx="8" />
+  <text class="label" x="490" y="666">Gera senha segura</text>
+  <text class="label" x="490" y="690">com random_int</text>
+
+  <path class="line" d="M490 708 L490 752" />
+  <rect class="success" x="310" y="752" width="360" height="64" rx="8" />
+  <text class="label" x="490" y="790">Embaralha caracteres</text>
+
+  <path class="line" d="M490 816 L490 856" />
+  <rect class="success" x="310" y="856" width="360" height="64" rx="8" />
+  <text class="label" x="490" y="894">Exibe senha gerada</text>
+
+  <path class="line" d="M670 888 L790 888" />
+  <rect class="node" x="790" y="856" width="140" height="64" rx="8" />
+  <text class="label" x="860" y="884">Usuario</text>
+  <text class="label" x="860" y="906">copia</text>
+</svg>

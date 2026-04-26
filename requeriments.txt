@@ -1,0 +1,4 @@
+PHP >= 8.0
+Apache
+XAMPP
+Navegador moderno com suporte a JavaScript
