@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/gerador.php';
+
 $password = '';
 $error = '';
 
@@ -8,60 +10,10 @@ $useLowercase = isset($_POST['lowercase']) || $_SERVER['REQUEST_METHOD'] !== 'PO
 $useNumbers = isset($_POST['numbers']) || $_SERVER['REQUEST_METHOD'] !== 'POST';
 $useSymbols = isset($_POST['symbols']);
 
-function getRandomCharacter(string $characters): string
-{
-    return $characters[random_int(0, strlen($characters) - 1)];
-}
-
-function shuffleSecurely(array $characters): string
-{
-    for ($i = count($characters) - 1; $i > 0; $i--) {
-        $j = random_int(0, $i);
-        [$characters[$i], $characters[$j]] = [$characters[$j], $characters[$i]];
-    }
-
-    return implode('', $characters);
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $groups = [];
-
-    if ($useUppercase) {
-        $groups[] = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    }
-
-    if ($useLowercase) {
-        $groups[] = 'abcdefghijklmnopqrstuvwxyz';
-    }
-
-    if ($useNumbers) {
-        $groups[] = '0123456789';
-    }
-
-    if ($useSymbols) {
-        $groups[] = '!@#$%^&*()-_=+[]{};:,.<>?';
-    }
-
-    if ($length < 4 || $length > 128) {
-        $error = 'Escolha um tamanho entre 4 e 128 caracteres.';
-    } elseif (count($groups) === 0) {
-        $error = 'Selecione pelo menos um tipo de caractere.';
-    } elseif ($length < count($groups)) {
-        $error = 'O tamanho precisa ser maior ou igual ao numero de tipos selecionados.';
-    } else {
-        $allCharacters = implode('', $groups);
-        $passwordCharacters = [];
-
-        foreach ($groups as $group) {
-            $passwordCharacters[] = getRandomCharacter($group);
-        }
-
-        while (count($passwordCharacters) < $length) {
-            $passwordCharacters[] = getRandomCharacter($allCharacters);
-        }
-
-        $password = shuffleSecurely($passwordCharacters);
-    }
+    $result = generateSecurePassword($length, $useUppercase, $useLowercase, $useNumbers, $useSymbols);
+    $password = $result['password'];
+    $error = $result['error'];
 }
 ?>
 <!DOCTYPE html>

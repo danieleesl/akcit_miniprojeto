@@ -15,12 +15,12 @@ Aplicacao web simples em PHP para gerar senhas aleatorias e seguras com base nos
 
 ## Tecnologias
 
-- Codex
+- OpenAI Codex como assistente de IA no desenvolvimento
 - PHP
 - HTML
 - CSS
 - JavaScript
-- XAMPP/Apache para execucao local
+- XAMPP para execucao local
 
 ## Como executar
 
@@ -32,12 +32,21 @@ Aplicacao web simples em PHP para gerar senhas aleatorias e seguras com base nos
 http://localhost/projeto/projeto_akcit/
 ```
 
+## Como testar
+
+Execute os arquivos de teste pela raiz do projeto:
+
+```powershell
+C:\xampp\php\php.exe tests\test_conf.php
+C:\xampp\php\php.exe tests\test_gerador.php
+```
+
 ## Arquitetura
 
 ```mermaid
 flowchart LR
     A[index.php] --> B[Interface HTML/CSS]
-    A --> C[Logica PHP]
+    A --> C[gerador.php]
     C --> D[Validacao dos criterios]
     C --> E[Geracao segura da senha]
     B --> F[Botao copiar com JavaScript]
@@ -45,19 +54,23 @@ flowchart LR
 
 ## Fluxo da aplicacao
 
-![Fluxo da aplicacao](../docs/fluxo-aplicacao.svg)
+![Fluxo da aplicacao](docs/fluxo-aplicacao.svg)
 
-[Abrir imagem do fluxo](../docs/fluxo-aplicacao.svg)
+[Abrir imagem do fluxo](docs/fluxo-aplicacao.svg)
 
 ## Estrutura atual
 
 ```text
 PROJETO/
+|-- README.md
 |-- docs/
 |   `-- fluxo-aplicacao.svg
 |-- projeto_akcit/
-|   |-- README.md
+|   |-- gerador.php
 |   `-- index.php
+|-- tests/
+|   |-- test_conf.php
+|   `-- test_gerador.php
 |-- .gitignore
 `-- requeriments.txt
 ```
