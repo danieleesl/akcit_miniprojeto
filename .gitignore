@@ -23,3 +23,8 @@ temp/
 
 # Cache
 .phpunit.result.cache
+__pycache__/
+*.py[cod]
+
+# Arquivos que devem continuar versionados
+!requeriments.txt
