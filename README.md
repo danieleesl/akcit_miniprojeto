@@ -13,6 +13,20 @@ Aplicacao web simples em PHP para gerar senhas aleatorias e seguras com base nos
 - Geracao segura usando `random_int()`.
 - Botao para copiar a senha gerada.
 
+## Requisitos funcionais
+
+- RF01: O sistema deve permitir que o usuario informe o tamanho da senha.
+- RF02: O sistema deve permitir que o usuario escolha se a senha tera letras maiusculas.
+- RF03: O sistema deve permitir que o usuario escolha se a senha tera letras minusculas.
+- RF04: O sistema deve permitir que o usuario escolha se a senha tera numeros.
+- RF05: O sistema deve permitir que o usuario escolha se a senha tera caracteres especiais.
+- RF06: O sistema deve validar se pelo menos um tipo de caractere foi selecionado.
+- RF07: O sistema deve validar se o tamanho da senha esta entre 4 e 128 caracteres.
+- RF08: O sistema deve gerar uma senha aleatoria de acordo com os criterios escolhidos.
+- RF09: O sistema deve garantir que a senha gerada contenha pelo menos um caractere de cada tipo selecionado.
+- RF10: O sistema deve exibir mensagens de erro quando os criterios informados forem invalidos.
+- RF11: O sistema deve permitir que o usuario copie a senha gerada.
+
 ## Tecnologias
 
 - OpenAI Codex como assistente de IA no desenvolvimento
@@ -34,11 +48,23 @@ http://localhost/projeto/projeto_akcit/
 
 ## Como testar
 
-Execute os arquivos de teste pela raiz do projeto:
+Com Make instalado, execute pela raiz do projeto:
+
+```powershell
+make test
+```
+
+Ou execute os arquivos de teste diretamente com o PHP do XAMPP:
 
 ```powershell
 C:\xampp\php\php.exe tests\test_conf.php
 C:\xampp\php\php.exe tests\test_gerador.php
+```
+
+Para validar a sintaxe dos arquivos PHP com Make:
+
+```powershell
+make lint
 ```
 
 ## Arquitetura
@@ -72,6 +98,7 @@ PROJETO/
 |   |-- test_conf.php
 |   `-- test_gerador.php
 |-- .gitignore
+|-- Makefile
 `-- requeriments.txt
 ```
 
