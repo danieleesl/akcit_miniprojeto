@@ -46,6 +46,38 @@ Aplicacao web simples em PHP para gerar senhas aleatorias e seguras com base nos
 http://localhost/projeto/projeto_akcit/
 ```
 
+## Testes com curl
+
+Com o Apache do XAMPP iniciado, o avaliador pode copiar e executar os comandos abaixo no PowerShell:
+
+```powershell
+curl.exe http://localhost/projeto/projeto_akcit/
+```
+
+Gerar senha com 16 caracteres, incluindo maiusculas, minusculas, numeros e caracteres especiais:
+
+```powershell
+curl.exe -X POST http://localhost/projeto/projeto_akcit/ -d "length=16&uppercase=on&lowercase=on&numbers=on&symbols=on"
+```
+
+Gerar senha com 12 caracteres, incluindo apenas letras e numeros:
+
+```powershell
+curl.exe -X POST http://localhost/projeto/projeto_akcit/ -d "length=12&uppercase=on&lowercase=on&numbers=on"
+```
+
+Testar validacao de tamanho invalido:
+
+```powershell
+curl.exe -X POST http://localhost/projeto/projeto_akcit/ -d "length=3&uppercase=on&lowercase=on"
+```
+
+Testar validacao sem nenhum tipo de caractere selecionado:
+
+```powershell
+curl.exe -X POST http://localhost/projeto/projeto_akcit/ -d "length=16"
+```
+
 ## Como testar
 
 Com Make instalado, execute pela raiz do projeto:
