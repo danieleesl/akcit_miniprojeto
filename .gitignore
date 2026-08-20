@@ -28,3 +28,6 @@ __pycache__/
 
 # Arquivos que devem continuar versionados
 !requeriments.txt
+
+# Repositorios temporarios usados apenas para analise local
+.repo_*/

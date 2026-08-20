@@ -116,13 +116,46 @@ flowchart LR
 
 [Abrir imagem do fluxo](docs/fluxo-aplicacao.svg)
 
+## Gestao de riscos e comunicacao
+
+Este projeto tambem inclui artefatos de gestao de riscos elaborados como parte da atividade academica sobre uso de IA generativa em projetos de software.
+
+- [Contexto do projeto](docs/project_management.md)
+- [Identificacao de riscos](docs/risks/identification.md)
+- [Analise qualitativa de riscos](docs/risks/analysis.md)
+- [Estrategias de resposta aos riscos](docs/risks/response.md)
+- [Comunicacao para stakeholders](docs/comunicacao-stakeholders.md)
+
+### Resumo dos principais riscos
+
+- Uso inadequado de aleatoriedade na geracao de senhas.
+- Falhas nas validacoes de entrada.
+- Cobertura de testes insuficiente para casos extremos.
+- Dificuldade de reproducao em ambientes XAMPP diferentes.
+- Vazamento acidental de arquivos sensiveis no repositorio.
+- Expansao excessiva do escopo do mini-projeto.
+
+### Estrategia de resposta prioritaria
+
+A resposta mais importante e mitigar o risco de geracao insegura de senhas. Para isso, a logica utiliza `random_int()`, fica separada em `projeto_akcit/gerador.php` e possui testes que verificam tamanho e presenca dos grupos de caracteres selecionados.
+
+### Apoio da IA generativa
+
+O OpenAI Codex foi utilizado como assistente de IA para apoiar a estruturacao do projeto, revisao do codigo, criacao de testes, organizacao do repositorio, elaboracao da documentacao e construcao dos artefatos de gestao de riscos. As sugestoes foram revisadas e validadas manualmente antes de serem incorporadas.
+
 ## Estrutura atual
 
 ```text
 PROJETO/
 |-- README.md
 |-- docs/
-|   `-- fluxo-aplicacao.svg
+|   |-- comunicacao-stakeholders.md
+|   |-- fluxo-aplicacao.svg
+|   |-- project_management.md
+|   `-- risks/
+|       |-- analysis.md
+|       |-- identification.md
+|       `-- response.md
 |-- projeto_akcit/
 |   |-- gerador.php
 |   `-- index.php
