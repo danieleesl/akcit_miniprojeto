@@ -1,138 +1,36 @@
 # Analise Qualitativa de Riscos
 
-Este documento aprofunda os riscos identificados para o projeto Gerador de Senhas Seguras, considerando impacto, probabilidade, causas, interdependencias e sinais de monitoramento.
+## Escala
 
-## Riscos prioritarios
+Probabilidade e impacto: baixo, medio ou alto. Sao criticos os riscos com impacto alto e probabilidade media ou alta, especialmente quando afetam vagas, pagamentos ou privacidade.
 
-### R01 - Geracao de senha com aleatoriedade inadequada
+## Analise dos riscos prioritarios
 
-**Analise:**  
-Este e o risco mais sensivel do projeto, pois a finalidade principal da aplicacao e gerar senhas seguras. Uma escolha inadequada de funcao aleatoria comprometeria diretamente o valor do produto.
+### R01 - Excesso de inscricoes
 
-**Causas provaveis:**
+Duas inscricoes simultaneas podem consumir a ultima vaga. Exige transacao atomica, teste de concorrencia e monitoramento da ocupacao.
 
-- Uso de funcoes nao criptograficas, como `rand()` ou `mt_rand()`.
-- Falta de revisao tecnica sobre seguranca.
-- Aceitacao automatica de sugestoes da IA sem validacao.
+### R07 - Exposicao de dados
 
-**Impactos:**
+Participantes, equipe financeira e palestrantes precisam de visoes diferentes. A ausencia de permissoes e auditoria pode violar privacidade e gerar dano reputacional.
 
-- Senhas previsiveis.
-- Perda de confianca do usuario.
-- Necessidade de correcao imediata da logica central.
+### R10 - Ambiguidades convertidas em regras
 
-**Sinais de alerta:**
+Prazo de cancelamento, reembolso, lista de espera, reserva de vaga, certificados e notificacoes continuam sem definicao. Implementar suposicoes pode gerar retrabalho e conflitos com stakeholders.
 
-- Alteracoes futuras substituindo `random_int()`.
-- Ausencia de testes que validem tamanho e grupos de caracteres.
-- Falta de revisao manual na funcao de geracao.
+### R02/R03 - Pagamentos e reembolsos
 
-### R02 - Falhas nas validacoes de entrada
-
-**Analise:**  
-As validacoes protegem a aplicacao contra configuracoes impossiveis ou inseguras, como gerar senha sem nenhum grupo de caracteres. Esse risco tem impacto alto porque erros nessa camada afetam diretamente a experiencia do usuario.
-
-**Causas provaveis:**
-
-- Adicao de novos criterios sem testes.
-- Mudancas no formulario sem atualizar a logica PHP.
-- Falta de testes para limites inferiores e superiores.
-
-**Impactos:**
-
-- Mensagens de erro ausentes ou confusas.
-- Senhas geradas fora do criterio escolhido.
-- Possibilidade de erro em tempo de execucao.
-
-**Sinais de alerta:**
-
-- Aumento de condicionais no `index.php`.
-- Testes nao atualizados apos mudancas de interface.
-- Regras de validacao diferentes entre README e codigo.
-
-### R04 - Cobertura de testes insuficiente
-
-**Analise:**  
-O projeto possui testes simples em PHP, o que e adequado ao escopo academico. Mesmo assim, a ausencia de um framework de testes e de cobertura automatizada pode deixar lacunas em cenarios de borda.
-
-**Causas provaveis:**
-
-- Tempo reduzido para elaborar uma suite completa.
-- Foco inicial na interface visual.
-- Falta de CI/CD para executar testes automaticamente.
-
-**Impactos:**
-
-- Regressao sem deteccao.
-- Falha em criterios combinados.
-- Maior esforco manual de validacao.
-
-**Sinais de alerta:**
-
-- Mudancas no `gerador.php` sem alteracao nos testes.
-- Testes executados apenas manualmente.
-- Falta de documentacao sobre como testar.
-
-### R06 - Vazamento de segredos no repositorio
-
-**Analise:**  
-O projeto nao usa chaves de API, banco de dados ou arquivos de ambiente obrigatorios. Ainda assim, por ser entregue em GitHub publico, e importante prevenir qualquer versionamento acidental de `.env` ou credenciais locais.
-
-**Causas provaveis:**
-
-- Arquivos locais criados durante testes.
-- Falta de revisao antes do commit.
-- `.gitignore` incompleto.
-
-**Impactos:**
-
-- Exposicao de informacoes privadas.
-- Necessidade de rotacionar credenciais.
-- Limpeza complexa do historico Git.
-
-**Sinais de alerta:**
-
-- Arquivos `.env` aparecendo no `git status`.
-- URLs com usuario e senha.
-- Tokens ou chaves no historico de commits.
-
-### R08 - README incompleto ou pouco reproduzivel
-
-**Analise:**  
-Em um trabalho academico, a documentacao e parte essencial da avaliacao. Mesmo que o codigo funcione, uma entrega pouco explicada dificulta reproducao e verificacao.
-
-**Causas provaveis:**
-
-- README atualizado depois do codigo, mas sem revisao final.
-- Ausencia de comandos testaveis.
-- Estrutura de pastas diferente da documentada.
-
-**Impactos:**
-
-- Avaliador nao consegue executar rapidamente.
-- Reducao da clareza profissional da entrega.
-- Perda de rastreabilidade dos artefatos.
-
-**Sinais de alerta:**
-
-- Links quebrados.
-- Comandos que dependem de contexto nao explicado.
-- Pastas citadas no README que nao existem.
+A inscricao depende do estado do pagamento, mas o momento da reserva da vaga nao foi acordado. A regra de reembolso tambem varia conforme o evento e precisa de matriz de decisao validada.
 
 ## Interdependencias
 
-| Risco origem | Risco afetado | Relacao |
-| --- | --- | --- |
-| R10 - Expansao de escopo | R04 - Testes insuficientes | Mais funcionalidades aumentam casos nao testados |
-| R04 - Testes insuficientes | R02 - Falhas nas validacoes | Validacoes podem quebrar sem regressao automatizada |
-| R08 - README incompleto | R03 - Compatibilidade XAMPP | Ambiente mal explicado aumenta falhas de execucao |
-| R06 - Vazamento de segredos | R08 - Documentacao | Boas instrucoes reduzem uso indevido de arquivos locais |
-| R01 - Aleatoriedade inadequada | R07 - Exposicao visual | Ambos afetam confianca do usuario na seguranca |
+| Origem | Efeito |
+| --- | --- |
+| R10 | Amplia R02, R03, R04 e R06 |
+| R09 | Amplia R01 e R08 em periodos de pico |
+| R07 | Limita os dados que podem ser exibidos a palestrantes |
+| R11 | Pode atrasar confirmacao de inscricoes e ocupar vagas indevidamente |
 
-## Cenario de impacto principal
+## Conclusao
 
-Um cenario critico seria a evolucao do projeto sem congelamento de escopo. Novas funcionalidades seriam adicionadas rapidamente, os testes simples nao acompanhariam todas as combinacoes e alguma validacao poderia falhar. Isso poderia gerar senha fora do criterio solicitado ou impedir a execucao pelo avaliador. O impacto seria tecnico e academico, pois afetaria tanto a qualidade do produto quanto a clareza da entrega.
-
-## Conclusao da analise
-
-Os riscos mais importantes para este projeto sao os relacionados a seguranca da geracao, validacao de entradas, testes e documentacao. A resposta mais efetiva e manter o escopo controlado, preservar a logica segura com `random_int()`, executar testes antes de commits e manter o README atualizado com comandos reproduziveis.
+A prioridade e validar regras em aberto e projetar controles de concorrencia, permissoes e auditoria antes da implementacao completa.

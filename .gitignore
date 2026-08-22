@@ -31,3 +31,6 @@ __pycache__/
 
 # Repositorios temporarios usados apenas para analise local
 .repo_*/
+
+# Novo projeto mantido como repositorio Git separado
+requisitos_salas_estudo/
